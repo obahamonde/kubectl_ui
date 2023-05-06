@@ -28,4 +28,4 @@ export type Node = {
   type: "file" | "directory";
   content?: string;
   children?: Node[];
-}
+};

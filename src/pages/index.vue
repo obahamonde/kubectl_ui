@@ -2,5 +2,5 @@
 const state = reactive({});
 </script>
 <template>
-    <Landing />
+  <Landing />
 </template>

@@ -3,7 +3,7 @@ const items = reactive([
   {
     to: "/",
     title: "Home",
-    icon: "mdi-home"
+    icon: "mdi-home",
   },
   {
     to: "/buckets",
@@ -24,6 +24,11 @@ const items = reactive([
     to: "/editor",
     title: "Editor",
     icon: "mdi-code-braces",
+  },
+  {
+    to: "/deployments",
+    title: "Deployments",
+    icon: "mdi-rocket",
   }
 ]);
 
@@ -43,25 +48,25 @@ const hideTitle = (title: string) => {
 </script>
 
 <template>
-                                                <nav
-                                                  class="bg-gray-200 sh w-96 mx-auto text-white bottom-0 right-0 left-0 fixed rounded-lg shadow-lg shadow-white h-16 row center gap-6 hover:gap-8"
-                                                >
-                                                  <div v-for="item in items" class="col center">
-                                                    <span
-                                                      :id="item.title"
-                                                      class="bg-gray-800 text-white rounded px-2 py-1 hidden fixed translate-y--16 translate-x-4"
-                                                      >{{ item.title }}</span
-                                                    >
-                                                    <RouterLink :to="item.to" :title="item.title" class="navbar__link">
-                                                      <Icon
-                                                        :icon="item.icon"
-                                                        x3
-                                                        style="z-index: 9999"
-                                                        @mouseover="showTitle(item.title)"
-                                                        @mouseleave="hideTitle(item.title)"
-                                                      />
-                                                    </RouterLink>
-                                                  </div>
+        <nav
+          class="bg-gray-200 sh w-128 mx-auto text-white bottom-0 right-0 left-0 fixed rounded-lg shadow-lg shadow-white h-16 row center gap-6 hover:gap-8"
+        >
+          <div v-for="item in items" class="col center">
+            <span
+              :id="item.title"
+              class="bg-gray-800 text-white rounded px-2 py-1 hidden fixed translate-y--16 translate-x-4"
+              >{{ item.title }}</span
+            >
+            <RouterLink :to="item.to" :title="item.title" class="navbar__link">
+              <Icon
+                :icon="item.icon"
+                x3
+                style="z-index: 9999"
+                @mouseover="showTitle(item.title)"
+                @mouseleave="hideTitle(item.title)"
+              />
+            </RouterLink>
+          </div>
     </nav>
 </template>
 

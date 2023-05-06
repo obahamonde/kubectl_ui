@@ -5,8 +5,7 @@ export const useStore = defineStore("state", () => {
   const state = reactive({
     user: null as User | null,
     notifications: [] as { message: string; status: string }[],
-    currentFile: null as Node | null,
-    currentFolder: null as Node | null,
+    node: null as any,
   });
 
   const setState = (newState: any) => {

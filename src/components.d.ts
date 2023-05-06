@@ -10,7 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppAbout: typeof import("./components/AppAbout.vue")["default"]
-    AppLanding: typeof import('./components/AppLanding.vue')['default']
+    AppLanding: typeof import("./components/AppLanding.vue")["default"]
     AppNav: typeof import("./components/AppNav.vue")["default"]
     AppNotifier: typeof import("./components/AppNotifier.vue")["default"]
     AppPortfolio: typeof import("./components/AppPortfolio.vue")["default"]
@@ -18,7 +18,7 @@ declare module '@vue/runtime-core' {
     Camera: typeof import("./components/Camera.vue")["default"]
     Chart: typeof import("./components/Chart.vue")["default"]
     Dark: typeof import('./components/Dark.vue')['default']
-    FileTree: typeof import('./components/FileTree.vue')['default']
+    FileTree: typeof import("./components/FileTree.vue")["default"]
     Footer: typeof import('./components/Footer.vue')['default']
     HelloWorld: typeof import("./components/HelloWorld.vue")["default"]
     Landing: typeof import('./components/Landing.vue')['default']
@@ -27,11 +27,12 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Social: typeof import("./components/Social.vue")["default"]
-    SystemBar: typeof import('./components/SystemBar.vue')['default']
+    SystemBar: typeof import("./components/SystemBar.vue")["default"]
     TikTok: typeof import("./components/TikTok.vue")["default"]
     Tracking: typeof import('./components/Tracking.vue')['default']
     Tree: typeof import('./components/Tree.vue')['default']
-    TreeItem: typeof import('./components/TreeItem.vue')['default']
+    TreeItem: typeof import("./components/TreeItem.vue")["default"]
+    TreeNode: typeof import('./components/TreeNode.vue')['default']
     Upload: typeof import('./components/Upload.vue')['default']
   }
 }
