@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-vue";
 const filesData = reactive<Upload[]>([]);
 const filesUpload = reactive<any[]>([]);
 const { user } = useAuth0();
+const { notify } = useStore();
 
 const onDrop = async (files: File[] | null) => {
   if (!files) return;
@@ -51,6 +52,11 @@ const useInputEl = () => {
   el.setAttribute("accept", "*/*");
   el.click();
 };
+const el = ref<HTMLElement | null>(null);
+
+const { x, y, style } = useDraggable(el, {
+  initialValue: { x: 40, y: 40 },
+});
 
 const deleteFile = async (file: Upload) => {
   await useFetch(`/api/upload?ref=${file.ref}`, {
@@ -59,6 +65,7 @@ const deleteFile = async (file: Upload) => {
   filesData.splice(filesData.indexOf(file), 1);
   filesUpload.splice(filesUpload.indexOf(file), 1);
   await getFiles();
+  notify(`Deleted ${file.name}!`, "success");
 };
 
 const getFiles = async () => {
@@ -95,6 +102,7 @@ onMounted(async () => {
             v-for="(file, index) in filesUpload"
             :key="index"
             class="col bg-gray-100 sh center gap-2 p-4"
+            ref="el"
           >
             <p class="row gap-4">
               <Icon
@@ -103,12 +111,12 @@ onMounted(async () => {
                 class="x2 cp hover:red-700 text-red-500 scale"
               />
             </p>
-            <p class="text-sm font-body">{{ file.name }}</p>
-            <p class="text-sm font-body">
+            <p class="text-sm text-body">{{ file.name }}</p>
+            <p class="text-sm text-body">
               {{ (file.size / 1000).toFixed(2) }} Kb
             </p>
-            <p class="text-sm font-body">{{ file.type }}</p>
-            <p class="text-sm font-body">
+            <p class="text-sm text-body">{{ file.type }}</p>
+            <p class="text-sm text-body">
               {{ new Date(file.lastModified).toLocaleString() }}
             </p>
 

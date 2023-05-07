@@ -1,11 +1,19 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import { User, Node } from "./types";
+import { User } from "./types";
 
 export const useStore = defineStore("state", () => {
   const state = reactive({
     user: null as User | null,
-    notifications: [] as { message: string; status: string }[],
+    tree: null as any,
     node: null as any,
+    notifications: [] as { message: string; status: string }[],
+    remote: {
+      owner: "",
+      repo: "",
+      source: "",
+    },
+    deployments: [] as any[],
+    database: null as any,
   });
 
   const setState = (newState: any) => {

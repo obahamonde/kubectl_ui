@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuth0 } from "@auth0/auth0-vue";
 import { useStore } from "~/hooks";
-const { state } = useStore();
+const { state, notify } = useStore();
 
 const toggle = ref(false);
 
@@ -17,12 +17,15 @@ const authorize = async () => {
   const token = await getAccessTokenSilently();
   const { data } = await useFetch(`/api/auth?token=${token}`).json();
   state.user = unref(data);
+  notify("Welcome " + state.user!.name + "!", "success");
 };
 
-onMounted(async () => {
-  if (isAuthenticated.value) {
-    await authorize();
-  }
+onMounted(() => {
+  setTimeout(async () => {
+    if (isAuthenticated) {
+      await authorize();
+    }
+  }, 1000);
 });
 </script>
 <template>
@@ -34,7 +37,7 @@ onMounted(async () => {
     />
     <div
       v-if="toggle"
-      class="br bg-gray-200 rounded mb-4 h-24 mr-24 sh px-4 py-2 col center fixed fade-in-right"
+      class="br bg-gray-200 dark:text-accent rounded mb-4 h-24 mr-24 sh px-4 py-2 col center fixed fade-in-right"
     >
       <p class="text-center">{{ user.name }}</p>
       <button class="btn-del" @click="logout()">Logout</button>

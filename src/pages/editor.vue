@@ -2,9 +2,42 @@
 import MonacoEditor from "monaco-editor-vue3";
 import { useStore } from "~/hooks";
 const { state } = useStore();
+
+const getLanguage = (fileName: string) => {
+  const ext = fileName.split(".").pop();
+  switch (ext) {
+    case "js":
+      return "javascript";
+    case "ts":
+      return "typescript";
+    case "py":
+      return "python";
+    case "html":
+      return "html";
+    case "css":
+      return "css";
+    case "json":
+      return "json";
+    case "md":
+      return "markdown";
+    case "Pipfile":
+      return "pipfile";
+    case "yml":
+      return "yaml";
+    case "yaml":
+      return "yaml";
+    case "lock":
+      return "lock";
+    case "vue":
+      return "vue";
+    default:
+      return "javascript";
+  }
+};
+
 const editor = reactive({
   code: "",
-  language: "javascript",
+  language: getLanguage(state.node ? state.node.name : "app.py"),
   options: {
     colorDecorators: true,
     lineHeight: 24,
@@ -84,66 +117,32 @@ const editor = reactive({
     bracketPairColorization: true,
   },
 });
-const getLanguage = (fileName: string) => {
-  const ext = fileName.split(".").pop();
-  switch (ext) {
-    case "js":
-      return "javascript";
-    case "ts":
-      return "typescript";
-    case "py":
-      return "python";
-    case "html":
-      return "html";
-    case "css":
-      return "css";
-    case "json":
-      return "json";
-    case "md":
-      return "markdown";
-    case "Pipfile":
-      return "pipfile";
-    case "yml":
-      return "yaml";
-    case "yaml":
-      return "yaml";
-    case "lock":
-      return "lock";
-    case "vue":
-      return "vue";
-    default:
-      return "javascript";
-  }
-};
 
-watchEffect(() => {
-  if (state.node) {
-    const { name, content } = state.node;
-    editor.code = content;
-    editor.language = getLanguage(name);
-  }
-});
 </script>
 <template>
   <Dark style="z-index: 9999" />
   <div class="row h-screen">
-    <aside
-      class="bg-gray-200 dark:bg-gray-500 w-1/4 p-4 h-full col overflow-y-scroll"
-    >
-      <div class="col center">
-        <Tree />
-      </div>
-    </aside>
-    <div class="col w-3/4 h-full">
-      <h1 class="px-2 py-1 w-auto sh">{{ state.node?.name }}</h1>
-      <MonacoEditor
-        class="w-3/4 h-full"
-        :theme="isDark ? 'vs-dark' : 'vs'"
-        :options="editor.options"
-        :language="editor.language"
-        v-model:value="editor.code"
-      >
-      </MonacoEditor>
+      <FileTree />
+      <div class="col w-3/4 h-full">
+        <h1 class="px-2 py-1 w-auto sh">
+          {{ state.node ? state.node.name : "app.py" }}
+        </h1>
+        <MonacoEditor
+          v-if="state.node"
+          class="w-3/4 h-full"
+          :theme="isDark ? 'vs-dark' : 'vs'"
+          :options="editor.options"
+          :language="editor.language"
+          v-model:value="state.node.content"
+        >
+        </MonacoEditor>
+        <MonacoEditor
+          v-else
+          class="w-3/4 h-full"
+          :theme="isDark ? 'vs-dark' : 'vs'"
+          :options="editor.options"
+          :language="editor.language"
+        />
     </div>
   </div>
 </template>

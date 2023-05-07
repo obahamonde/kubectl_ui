@@ -1,10 +1,9 @@
-<script setup lang="ts">
-const { state } = useStore()
-</script>
+<script setup lang="ts"></script>
 <template>
-    <div>
-
-        {{ state.user }}
-
-    </div>
+  <div class="row start h-full">
+    <FileTree />
+    <main class="col w-3/4 h-full">
+      <Deploy />
+    </main>
+  </div>
 </template>

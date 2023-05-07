@@ -74,7 +74,7 @@ export default defineConfig({
       "text-title",
       "font-script text-info dark:text-light text-2xl text-center",
     ],
-    ["text-body", "font-serif text-accent dark:text-light text-lg"],
+    ["text-body", "font-serif text-primary dark:text-accent text-lg"],
     [
       "text-subtitle",
       "font-sans text-accent dark:text-success text-xl text-center",

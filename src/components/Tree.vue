@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const tree = ref<any>();
-const owner = ref("");
-const repo = ref("");
+const { state } = useStore();
+
 const getNodes = async () => {
   const { data } = await useFetch(
-    "/api/clone/" + owner.value + "/" + repo.value
+    "/api/clone/" + state.remote.owner + "/" + state.remote.repo
   ).json();
   tree.value = unref(data);
 };
@@ -13,13 +13,13 @@ const getNodes = async () => {
   <p class="col center">
     <input
       type="text"
-      v-model="owner"
+      v-model="state.remote.owner"
       placeholder="owner"
       class="input text-center"
     />
     <input
       type="text"
-      v-model="repo"
+      v-model="state.remote.repo"
       placeholder="repo"
       class="input text-center"
       @keyup.enter="getNodes()"
