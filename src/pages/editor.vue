@@ -117,32 +117,31 @@ const editor = reactive({
     bracketPairColorization: true,
   },
 });
-
 </script>
 <template>
   <Dark style="z-index: 9999" />
   <div class="row h-screen">
-      <FileTree />
-      <div class="col w-3/4 h-full">
-        <h1 class="px-2 py-1 w-auto sh">
-          {{ state.node ? state.node.name : "app.py" }}
-        </h1>
-        <MonacoEditor
-          v-if="state.node"
-          class="w-3/4 h-full"
-          :theme="isDark ? 'vs-dark' : 'vs'"
-          :options="editor.options"
-          :language="editor.language"
-          v-model:value="state.node.content"
-        >
-        </MonacoEditor>
-        <MonacoEditor
-          v-else
-          class="w-3/4 h-full"
-          :theme="isDark ? 'vs-dark' : 'vs'"
-          :options="editor.options"
-          :language="editor.language"
-        />
+    <FileTree />
+    <div class="col w-3/4 h-full">
+      <h1 class="px-2 py-1 w-auto sh">
+        {{ state.node ? state.node.name : "app.py" }}
+      </h1>
+      <MonacoEditor
+        v-if="state.node"
+        class="w-3/4 h-full"
+        :theme="isDark ? 'vs-dark' : 'vs'"
+        :options="editor.options"
+        :language="editor.language"
+        v-model:value="state.node.content"
+      >
+      </MonacoEditor>
+      <MonacoEditor
+        v-else
+        class="w-3/4 h-full"
+        :theme="isDark ? 'vs-dark' : 'vs'"
+        :options="editor.options"
+        :language="editor.language"
+      />
     </div>
   </div>
 </template>

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-const { state } = useStore()
+const { state } = useStore();
 </script>
 <template>
-    <section>
-
-        {{ state }}
-
-    </section>
+  <section>
+    {{ state }}
+  </section>
 </template>
