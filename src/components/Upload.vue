@@ -7,7 +7,7 @@ const { user } = useAuth0();
 const { notify } = useStore();
 
 const onDrop = async (files: File[] | null) => {
-  if (!files) return;
+  if (!files?.length) return;
   files
     .map((file) => {
       const url = useObjectUrl(file);
@@ -52,11 +52,6 @@ const useInputEl = () => {
   el.setAttribute("accept", "*/*");
   el.click();
 };
-const el = ref<HTMLElement | null>(null);
-
-const { x, y, style } = useDraggable(el, {
-  initialValue: { x: 40, y: 40 },
-});
 
 const deleteFile = async (file: Upload) => {
   await useFetch(`/api/upload?ref=${file.ref}`, {
@@ -91,6 +86,7 @@ onMounted(async () => {
         @click="useInputEl"
         multiple
         class="flex flex-col w-full min-h-200px h-auto bg-gray-400/10 justify-center items-center mt-6"
+          
       >
         <div>
           {{ isOverDropZone ? "Drop here" : "Drag and drop files here" }}
