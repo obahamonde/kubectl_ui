@@ -135,13 +135,12 @@ const cancelNewChildNode = () => {
 const deleteNode = (node: Node) => {
   if (!nodeRef.value!.children) {
     nodeRef.value = undefined;
-  } else if (nodeRef.value!.children.length === 1) {
+  } else if (nodeRef.value!.children!.length === 1) {
     nodeRef.value!.children = undefined;
-  } else if (nodeRef.value!.children.length === 0) {
-    nodeRef.value = undefined;
+  } else {
+    const index = nodeRef.value!.children!.indexOf(node);
+    nodeRef.value!.children!.splice(index, 1);
   }
-  const index = nodeRef.value!.children!.indexOf(node);
-  nodeRef.value!.children!.splice(index, 1);
 };
 </script>
 
