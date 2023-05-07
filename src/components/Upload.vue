@@ -7,7 +7,7 @@ const { user } = useAuth0();
 const { notify } = useStore();
 
 const onDrop = async (files: File[] | null) => {
-  if (!files?.length) return;
+  if (!files || files.length === 0) return;
   files
     .map((file) => {
       const url = useObjectUrl(file);
@@ -93,12 +93,11 @@ onMounted(async () => {
         </div>
       </div>
       <div class="col center m-8">
-        <div class="grid3 p-8 gap-8">
-          <div
-            v-for="(file, index) in filesUpload"
-            :key="index"
-            class="col bg-gray-100 sh center gap-2 p-4"
-            ref="el"
+          <div class="grid3 p-8 gap-8" v-if="filesData.length > 0">
+            <div
+              v-for="(file, index) in filesUpload"
+              :key="index"
+                class="col bg-gray-100 sh center gap-2 p-4"
           >
             <p class="row gap-4">
               <Icon
