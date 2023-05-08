@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "build": "vite-ssg build",
+    "build": "vite build",
     "dev": "vite --port 3000 --open"
   },
   "dependencies": {
@@ -12,6 +12,7 @@
     "monaco-editor-vue3": "^0.1.6",
     "node:path": "link:@type/node:path",
     "pinia": "^2.0.33",
+    "rollup-plugin-web-worker-loader": "^1.6.1",
     "vue": "^3.2.47",
     "vue-demi": "^0.13.11",
     "vue-router": "^4.1.6"

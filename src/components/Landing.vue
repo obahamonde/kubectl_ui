@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const el = ref<HTMLElement | null>(null);
 
-const { x, y, style } = useDraggable(el, {
+const { style } = useDraggable(el, {
   initialValue: { x: 880, y: 200 },
 });
 </script>

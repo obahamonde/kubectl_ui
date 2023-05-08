@@ -12,7 +12,7 @@ export const useStore = defineStore("state", () => {
       repo: "",
       source: "",
     },
-    deployments: [] as any[],
+    deployments: [] as any[], 
     database: null as any,
   });
 

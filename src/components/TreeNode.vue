@@ -135,7 +135,7 @@ const cancelNewChildNode = () => {
 const deleteNode = (node: Node) => {
   if (!nodeRef.value!.children) {
     nodeRef.value = undefined;
-  } else if (nodeRef.value!.children!.length === 1) {
+  } else if (nodeRef.value!.children!.length <= 1) {
     nodeRef.value!.children = undefined;
   } else {
     const index = nodeRef.value!.children!.indexOf(node);
