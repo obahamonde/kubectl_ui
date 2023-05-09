@@ -2,43 +2,43 @@
   <div class="tree-node">
     <div class="tree-node-item" v-if="nodeRef">
       <icon
-        :icon="toIcon(nodeRef!)"
-        class="rf cp scale"
-        @click="toggleFolderOrLoadFile"
-      />
-      <span class="cp">{{ nodeRef!.name }}</span>
-      <Icon
-        icon="mdi-delete"
-        class="cp scale rf m-4 sh x2 p-2 hover:text-cyan"
-        @click="deleteNode(nodeRef!)"
-      />
-    </div>
-    <div v-if="isOpen && nodeRef!.children" class="tree-node-children">
-      <Icon
-        icon="mdi-plus"
-        class="cp scale rf m-4 sh x2 p-2 hover:text-cyan"
-        @click="addNewChildNode"
-      />
-      <TreeNode
-        v-for="(child, index) in nodeRef!.children"
-        :key="index"
-        :node="child"
-      />
-    </div>
-    <div v-if="showModal" class="modal">
-      <div class="modal-content">
-        <label for="nodeName">Name:</label>
-        <input type="text" id="nodeName" v-model="newNodeName" />
-        <label for="nodeType">Type:</label>
-        <select id="nodeType" v-model="newNodeType">
-          <option value="file">File</option>
-          <option value="directory">Directory</option>
-        </select>
-        <button btn-get @click="saveNewChildNode">Save</button>
-        <button btn-del @click="cancelNewChildNode">Cancel</button>
+          :icon="toIcon"
+          class="rf cp scale"
+          @click="toggleFolderOrLoadFile"
+        />
+        <span class="cp">{{ nodeRef!.name }}</span>
+        <Icon
+          icon="mdi-delete"
+          class="cp scale rf m-4 sh x2 p-2 hover:text-cyan"
+          @click="deleteNode(nodeRef!)"
+        />
+      </div>
+      <div v-if="isOpen && nodeRef!.children" class="tree-node-children">
+        <Icon
+          icon="mdi-plus"
+          class="cp scale rf sh x1 mx-4 hover:text-cyan"
+          @click="addNewChildNode"
+        />
+        <TreeNode
+          v-for="(child, index) in nodeRef!.children"
+          :key="index"
+          :node="child"
+        />
+      </div>
+      <div v-if="showModal" class="modal">
+        <div class="modal-content">
+          <label for="nodeName">Name:</label>
+          <input type="text" id="nodeName" v-model="newNodeName" />
+          <label for="nodeType">Type:</label>
+          <select id="nodeType" v-model="newNodeType">
+            <option value="file">File</option>
+            <option value="directory">Directory</option>
+          </select>
+          <button btn-get @click="saveNewChildNode">Save</button>
+          <button btn-del @click="cancelNewChildNode">Cancel</button>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -55,21 +55,34 @@ const isOpen = ref(false);
 
 const nodeRef = ref<Node | undefined>(props.node);
 
+const updateNodeTree = (node: Node) => {
+  let tree = state.node;
+  for (const child of tree.children) {
+    if (child.type === "directory") {
+      if (child.name === node.name) {
+        child.children = node.children;
+      } else updateNodeTree(child);
+    }
+  }
+  return tree;
+};
+
 const toggleFolderOrLoadFile = () => {
   if (nodeRef.value!.type === "directory") {
     isOpen.value = !isOpen.value;
   } else {
-    state.node = nodeRef.value;
+    state.currentNode = nodeRef.value!;
+    state.node = updateNodeTree(nodeRef.value!);
   }
 };
 
-const toIcon = (node: Node) => {
-  if (nodeRef.value!.type === "file") {
-    return fileToIcon(nodeRef.value!.name);
+const toIcon = computed(() => {
+  if (nodeRef.value!.type === "directory") {
+    return isOpen.value ? "mdi-folder-open" : "mdi-folder";
   } else {
-    return "mdi:folder";
+    return fileToIcon(nodeRef.value!.name);
   }
-};
+});
 
 const fileToIcon = (fileName: string) => {
   const ext = fileName.split(".").pop();

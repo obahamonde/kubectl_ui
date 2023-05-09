@@ -78,7 +78,7 @@ const hideTitle = (title: string) => {
 
 .navbar__link:hover {
   @apply text-white;
-  @apply hover:text-cyan hover:scale hover:translate-y--4 hover:translate-x-4;
+  @apply hover:text-cyan hover:scale hover:translate-y--2 hover:translate-x-4;
 }
 
 .nav-link-exact-active {

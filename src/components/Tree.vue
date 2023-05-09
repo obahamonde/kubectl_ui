@@ -7,6 +7,7 @@ const getNodes = async () => {
     "/api/clone/" + state.remote.owner + "/" + state.remote.repo
   ).json();
   tree.value = unref(data);
+  state.node = tree.value;
 };
 
 const showModal = ref(false);
@@ -54,7 +55,7 @@ const cancelNewChildNode = () => {
   <div class="tree" v-if="tree">
     <Icon
       icon="mdi-plus"
-      class="cp scale rf m-4 sh x2 p-2 hover:text-cyan"
+      class="cp scale rf sh x2 p-2 hover:text-cyan"
       @click="addNewChildNode"
     />
     <tree-node v-for="(node, index) in tree" :key="index" :node="node" />

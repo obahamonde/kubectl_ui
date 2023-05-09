@@ -4,7 +4,7 @@ import { User } from "./types";
 export const useStore = defineStore("state", () => {
   const state = reactive({
     user: null as User | null,
-    tree: null as any,
+    currentNode: null as any,
     node: null as any,
     notifications: [] as { message: string; status: string }[],
     remote: {
@@ -12,7 +12,7 @@ export const useStore = defineStore("state", () => {
       repo: "",
       source: "",
     },
-    deployments: [] as any[], 
+    deployments: [] as any[],
     database: null as any,
   });
 

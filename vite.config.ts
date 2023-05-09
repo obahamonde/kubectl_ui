@@ -11,8 +11,7 @@ import Shiki from "markdown-it-shiki";
 import Pages from "vite-plugin-pages";
 import VueMacros from "unplugin-vue-macros/vite";
 import WebfontDownload from "vite-plugin-webfont-dl";
-import webWorkerLoader from 'rollup-plugin-web-worker-loader';
-
+import webWorkerLoader from "rollup-plugin-web-worker-loader";
 
 export default defineConfig({
   resolve: {

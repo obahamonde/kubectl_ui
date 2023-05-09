@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const state = reactive({
-
-})
+const state = reactive({});
 </script>
 <template></template>
